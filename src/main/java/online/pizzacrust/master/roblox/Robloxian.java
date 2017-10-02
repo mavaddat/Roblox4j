@@ -24,7 +24,7 @@ public interface Robloxian extends Profile {
          * Grabs the robloxian object, will take time and can return null.
          * @return
          */
-        Robloxian grab();
+        Robloxian grab() throws Exception;
 
     }
 

@@ -17,7 +17,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public LightReference toReference() {
-        return null;
+        return new BasicReference(this.getUserId(), this.getUsername());
     }
 
     @Override
