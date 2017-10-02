@@ -38,32 +38,37 @@ public interface Robloxian extends Profile {
      * Retrieves the best friends (200 max) of a player.
      * @return
      */
-    List<LightReference> getBestFriends();
+    List<LightReference> getBestFriends() throws Exception;
 
     /**
      * Retrieves the ROBLOX badges of the player.
      * @return
      */
-    List<String> getRobloxBadges();
+    List<String> getRobloxBadges() throws Exception;
 
     /**
      * Retrieves the past usernames of the player.
      * @return
      */
-    List<String> getPastUsernames();
+    List<String> getPastUsernames() throws Exception;
 
     /**
      * Retrieves whether the current user in the specified group.
      * @param groupId
      * @return
      */
-    boolean isInGroup(int groupId);
+    boolean isInGroup(int groupId) throws Exception;
 
     /**
      * Retrieves the NAME of the rank of the current user in the specified group.
      * @param groupId
      * @return
      */
-    String getRankInGroup(int groupId);
+    String getRankInGroup(int groupId) throws Exception;
 
+    /**
+     * Retrieves profile URL
+     * @return
+     */
+    String getProfileUrl();
 }
