@@ -2,6 +2,8 @@ package online.pizzacrust.master.roblox;
 
 import java.util.List;
 
+import online.pizzacrust.master.roblox.group.Group;
+
 /**
  * Represents a user on ROBLOX.com
  *
@@ -54,17 +56,16 @@ public interface Robloxian extends Profile {
 
     /**
      * Retrieves whether the current user in the specified group.
-     * @param groupId
      * @return
      */
-    boolean isInGroup(int groupId) throws Exception;
+    boolean isInGroup(Group group) throws Exception;
 
     /**
      * Retrieves the NAME of the rank of the current user in the specified group.
-     * @param groupId
+     * @param group
      * @return
      */
-    String getRankInGroup(int groupId) throws Exception;
+    String getRankInGroup(Group group) throws Exception;
 
     /**
      * Retrieves profile URL

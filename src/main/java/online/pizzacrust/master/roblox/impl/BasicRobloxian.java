@@ -12,6 +12,7 @@ import java.util.List;
 
 import online.pizzacrust.master.roblox.Robloxian;
 import online.pizzacrust.master.roblox.errors.InvalidUserException;
+import online.pizzacrust.master.roblox.group.Group;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
     public BasicRobloxian(String username) throws InvalidUserException {
@@ -46,9 +47,24 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return references;
     }
 
+    public static class BadgeResponse {
+        public static class BadgeData {
+            public String Name;
+        }
+        public BadgeData[] RobloxBadges;
+    }
+
     @Override
-    public List<String> getRobloxBadges() {
-        return null;
+    public List<String> getRobloxBadges() throws Exception{
+        List<String> badges = new ArrayList<>();
+        String url = "https://www.roblox" +
+                ".com/badges/roblox?userId=261&imgWidth=110&imgHeight=110&imgFormat=png";
+        BadgeResponse response = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text(), BadgeResponse.class);
+        for (BadgeResponse.BadgeData robloxBadge : response.RobloxBadges) {
+            badges.add(robloxBadge.Name);
+        }
+        return badges;
     }
 
     @Override
@@ -66,12 +82,12 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     @Override
-    public boolean isInGroup(int groupId) {
+    public boolean isInGroup(Group groupId) {
         return false;
     }
 
     @Override
-    public String getRankInGroup(int groupId) {
+    public String getRankInGroup(Group groupId) {
         return null;
     }
 
