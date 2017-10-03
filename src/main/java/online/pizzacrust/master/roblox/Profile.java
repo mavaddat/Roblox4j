@@ -9,7 +9,7 @@ package online.pizzacrust.master.roblox;
 public interface Profile {
 
     /**
-     * Retrieves the numerical ID for the profile.
+     * Retrieves the numerical Id for the profile.
      * @return
      */
     int getUserId();

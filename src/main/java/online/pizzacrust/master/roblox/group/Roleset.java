@@ -8,6 +8,8 @@ public interface Roleset {
      */
      int getRankIndex();
 
-     String getId();
+     int getId();
+
+     String getName();
 
 }

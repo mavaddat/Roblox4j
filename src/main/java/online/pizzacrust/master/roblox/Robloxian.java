@@ -61,13 +61,6 @@ public interface Robloxian extends Profile {
     boolean isInGroup(Group group) throws Exception;
 
     /**
-     * Retrieves the NAME of the rank of the current user in the specified group.
-     * @param group
-     * @return
-     */
-    String getRankInGroup(Group group) throws Exception;
-
-    /**
      * Retrieves profile URL
      * @return
      */

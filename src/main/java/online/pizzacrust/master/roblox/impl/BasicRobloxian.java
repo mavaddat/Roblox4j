@@ -82,13 +82,11 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     @Override
-    public boolean isInGroup(Group groupId) {
+    public boolean isInGroup(Group groupId) throws Exception{
+        if (groupId.findById(this.getUserId()) != null) {
+            return true;
+        }
         return false;
-    }
-
-    @Override
-    public String getRankInGroup(Group groupId) {
-        return null;
     }
 
     @Override

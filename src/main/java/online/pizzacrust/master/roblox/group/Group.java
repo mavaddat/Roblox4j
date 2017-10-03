@@ -7,14 +7,17 @@ import online.pizzacrust.master.roblox.Robloxian;
 
 public interface Group {
 
-    List<Roleset> getRolesets();
+    List<Roleset> getRolesets() throws Exception;
 
-    String getName();
+    String getName() throws Exception;
 
-    Robloxian.LightReference[] getMembers();
+    /**
+     * Gets the members of the group. Max. 100
+     * @return
+     * @throws Exception
+     */
+    Robloxian.LightReference[] getMembersInRole(Roleset roleset) throws Exception;
 
-    Optional<Robloxian.LightReference> findByName(String name);
-
-    Optional<Robloxian.LightReference> findById(int id);
+    Optional<Roleset> getRole(Robloxian robloxian) throws Exception;
 
 }
