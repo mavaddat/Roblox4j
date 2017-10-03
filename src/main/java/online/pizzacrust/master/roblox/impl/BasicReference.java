@@ -24,6 +24,11 @@ public class BasicReference implements Robloxian.LightReference {
     }
 
     @Override
+    public String toString() {
+        return "{name: " + getUsername() + ", id:" + getUsername() + "}";
+    }
+
+    @Override
     public String getUsername() {
         return this.username;
     }

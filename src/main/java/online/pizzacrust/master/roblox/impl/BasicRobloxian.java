@@ -1,9 +1,12 @@
 package online.pizzacrust.master.roblox.impl;
 
+import com.google.gson.Gson;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +23,27 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return new BasicReference(this.getUserId(), this.getUsername());
     }
 
+    public static class FriendsResponse {
+        public static class FriendData {
+            public int UserId;
+            public String Username;
+        }
+        public FriendData[] Friends;
+    }
+
     @Override
-    public List<LightReference> getBestFriends() {
-        return null;
+    public List<LightReference> getBestFriends() throws Exception {
+        List<LightReference> references = new ArrayList<>();
+        String url = "https://www.roblox" +
+                ".com/friends/json?userId=" + getUserId() +
+        "&currentPage=0&pageSize=1000&imgWidth=110&imgHeight=110&imgFormat=jpeg&friendsType" +
+                "=BestFriends";
+        FriendsResponse response = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text(), FriendsResponse.class);
+        for (FriendsResponse.FriendData friend : response.Friends) {
+            references.add(new BasicReference(friend.UserId, friend.Username));
+        }
+        return references;
     }
 
     @Override
@@ -61,7 +82,8 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("Matthew_Castellan");
-        robloxian.getPastUsernames().forEach(System.out::println);
+        System.out.println(robloxian.getBestFriends().size());
+        robloxian.getBestFriends().forEach(System.out::println);
     }
 
 }
