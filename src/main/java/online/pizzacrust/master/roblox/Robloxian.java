@@ -65,4 +65,11 @@ public interface Robloxian extends Profile {
      * @return
      */
     String getProfileUrl();
+
+    /**
+     * Gets groups of a person. May take time to parse if at maximum 100.
+     * @return
+     */
+    Group[] getGroups() throws Exception;
+
 }

@@ -96,8 +96,33 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return "https://www.roblox.com/users/" + this.getUserId() + "/profile";
     }
 
+    public static class GroupsResponse {
+        public static class GroupData {
+            public int Id;
+        }
+        public GroupData[] Groups;
+    }
+
+    @Override
+    public Group[] getGroups() throws Exception {
+        String url = "https://www.roblox.com/users/profile/playergroups-json?userId=" + this
+                .getUserId();
+        GroupsResponse response = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text(), GroupsResponse.class);
+        List<Group> groups = new ArrayList<>();
+        for (GroupsResponse.GroupData group : response.Groups) {
+            groups.add(Roblox.get(group.Id));
+        }
+        return groups.toArray(new Group[groups.size()]);
+    }
+
     public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("Matthew_Castellan");
+        BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
+        Group[] groups = robloxian.getGroups();
+        System.out.println("group size: " + groups.length);
+        for (Group group : groups) {
+            System.out.println(group.getName());
+        }
     }
 
 }
