@@ -89,6 +89,11 @@ public class BasicGroup implements Group{
         return Optional.empty();
     }
 
+    @Override
+    public int getId() {
+        return groupId;
+    }
+
     public static void main(String... args) throws Exception {
         BasicGroup group = new BasicGroup(860594);
         BasicRobloxian robloxian = new BasicRobloxian("Swatcommader6");

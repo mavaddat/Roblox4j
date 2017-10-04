@@ -20,4 +20,6 @@ public interface Group {
 
     Optional<Roleset> getRole(Robloxian robloxian) throws Exception;
 
+    int getId();
+
 }

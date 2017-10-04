@@ -5,11 +5,13 @@ import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import online.pizzacrust.master.roblox.Roblox;
 import online.pizzacrust.master.roblox.Robloxian;
 import online.pizzacrust.master.roblox.errors.InvalidUserException;
 import online.pizzacrust.master.roblox.group.Group;
@@ -83,10 +85,10 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public boolean isInGroup(Group groupId) throws Exception{
-        if (groupId.findById(this.getUserId()) != null) {
-            return true;
-        }
-        return false;
+        String url = "https://www.roblox.com/Game/LuaWebService/HandleSocialRequest" +
+                ".ashx?method=IsInGroup&playerid=" + this.getUserId() + "&groupid=" + groupId.getId();
+        return Boolean.parseBoolean(Jsoup.connect(url).ignoreContentType(true).get().body
+                ().text());
     }
 
     @Override
@@ -96,8 +98,6 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("Matthew_Castellan");
-        System.out.println(robloxian.getBestFriends().size());
-        robloxian.getBestFriends().forEach(System.out::println);
     }
 
 }
