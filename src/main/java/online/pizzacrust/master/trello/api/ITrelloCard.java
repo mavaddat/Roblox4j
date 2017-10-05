@@ -1,5 +1,7 @@
 package online.pizzacrust.master.trello.api;
 
+import java.util.List;
+
 public interface ITrelloCard {
 
     String getName() throws Exception;
@@ -16,5 +18,10 @@ public interface ITrelloCard {
 
     void setDescription(String description) throws Exception;
 
+    List<ITrelloCheckList> getCheckLists();
+
+    void addCheckList(ITrelloCheckList checkList);
+
+    void setCheckListItemState(TrelloCheckListItem item, boolean newState);
 
 }
