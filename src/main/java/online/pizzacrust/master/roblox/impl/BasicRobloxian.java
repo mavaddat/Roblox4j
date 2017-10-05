@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import online.pizzacrust.master.roblox.Badge;
 import online.pizzacrust.master.roblox.Roblox;
 import online.pizzacrust.master.roblox.Robloxian;
 import online.pizzacrust.master.roblox.errors.InvalidUserException;
@@ -116,12 +117,62 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return groups.toArray(new Group[groups.size()]);
     }
 
+    public static class BadgesResponse {
+        public static class BadgesData {
+            public String nextPageCursor;
+            public static class PlayerBadgeData {
+                public static class ItemData {
+                    public int AssetId;
+                    public String Name;
+                }
+                public ItemData Item;
+            }
+            public PlayerBadgeData[] Items;
+        }
+        public BadgesData Data;
+    }
+
+    private List<Badge> recursiveBadgeRetrieve(BadgesResponse response) throws Exception {
+        String url = "https://www.roblox" +
+                ".com/users/inventory/list-json?assetTypeId=21&cursor=" + response
+                .Data.nextPageCursor + "&itemsPerPage=100" +
+                "&pageNumber=1&sortOrder=Desc&userId=" + this.getUserId();
+        BadgesResponse response1 = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text(), BadgesResponse.class);
+        List<Badge> badges = new ArrayList<>();
+        for (BadgesResponse.BadgesData.PlayerBadgeData item : response1.Data.Items) {
+            badges.add(new Badge(item.Item.AssetId, item.Item.Name));
+        }
+        if (response1.Data.nextPageCursor != null) {
+            badges.addAll(recursiveBadgeRetrieve(response1));
+        }
+        return badges;
+    }
+
+    @Override
+    public Badge[] getBadges() throws Exception {
+        List<Badge> badges = new ArrayList<>();
+        String url = "https://www.roblox" +
+                ".com/users/inventory/list-json?assetTypeId=21&cursor=&itemsPerPage=100" +
+                "&pageNumber=1&sortOrder=Desc&userId=" + this.getUserId();
+        BadgesResponse response = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text(), BadgesResponse.class);
+        for (BadgesResponse.BadgesData.PlayerBadgeData item : response.Data.Items) {
+            badges.add(new Badge(item.Item.AssetId, item.Item.Name));
+        }
+        // next page
+        if (response.Data.nextPageCursor != null) {
+            badges.addAll(recursiveBadgeRetrieve(response));
+        }
+        return badges.toArray(new Badge[badges.size()]);
+    }
+
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
-        Group[] groups = robloxian.getGroups();
-        System.out.println("group size: " + groups.length);
-        for (Group group : groups) {
-            System.out.println(group.getName());
+        Badge[] badges = robloxian.getBadges();
+        System.out.println("number of badges: " + badges.length);
+        for (Badge badge : badges) {
+            System.out.println("badge name: " + badge.getName());
         }
     }
 

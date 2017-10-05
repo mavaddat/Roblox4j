@@ -72,4 +72,11 @@ public interface Robloxian extends Profile {
      */
     Group[] getGroups() throws Exception;
 
+    /**
+     * Takes some time. Maximum is 100 million.
+     * @return
+     * @throws Exception
+     */
+    Badge[] getBadges() throws Exception;
+
 }
