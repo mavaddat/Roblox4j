@@ -30,7 +30,7 @@ public class TrelloCheckList implements ITrelloCheckList {
         this.name = response.name;
         for (CheckListResponse.CheckItemData checkItem : response.checkItems) {
             trelloCheckListItems.add(new TrelloCheckListItem(checkItem.state.equalsIgnoreCase
-                    ("completed"), checkItem.id, checkItem.name, this));
+                    ("complete"), checkItem.id, checkItem.name, this));
         }
     }
 
@@ -58,6 +58,15 @@ public class TrelloCheckList implements ITrelloCheckList {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof TrelloCheckList)) {
+            return false;
+        }
+        TrelloCheckList checkList = (TrelloCheckList)object;
+        return checkList.id.equalsIgnoreCase(this.id);
     }
 
 }

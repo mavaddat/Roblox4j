@@ -82,7 +82,6 @@ public class Card {
     public void update(String apiKey, String clientToken) throws Exception {
         String root = "https://api.trello.com/1/cards/" + this.id;
         if (apiKey != null) {
-            System.out.println("Using credentials to make request happen");
             root = root + "?token=" + clientToken + "&key=" + apiKey;
         }
         CardJson json = new Gson().fromJson(Jsoup.connect(root).ignoreContentType(true).get()
