@@ -1,11 +1,11 @@
-package online.pizzacrust.master.roblox;
+package online.pizzacrust.roblox;
 
 import java.util.Optional;
 
-import online.pizzacrust.master.roblox.errors.InvalidUserException;
-import online.pizzacrust.master.roblox.group.Group;
-import online.pizzacrust.master.roblox.impl.BasicGroup;
-import online.pizzacrust.master.roblox.impl.BasicRobloxian;
+import online.pizzacrust.roblox.errors.InvalidUserException;
+import online.pizzacrust.roblox.group.Group;
+import online.pizzacrust.roblox.impl.BasicGroup;
+import online.pizzacrust.roblox.impl.BasicRobloxian;
 
 public class Roblox {
 

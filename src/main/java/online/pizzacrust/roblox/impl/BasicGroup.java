@@ -1,4 +1,4 @@
-package online.pizzacrust.master.roblox.impl;
+package online.pizzacrust.roblox.impl;
 
 import com.google.gson.Gson;
 
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import online.pizzacrust.master.roblox.Robloxian;
-import online.pizzacrust.master.roblox.group.Group;
-import online.pizzacrust.master.roblox.group.Roleset;
+import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.group.Group;
+import online.pizzacrust.roblox.group.Roleset;
 
 public class BasicGroup implements Group{
 

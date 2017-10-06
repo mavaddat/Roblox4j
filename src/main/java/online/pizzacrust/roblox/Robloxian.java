@@ -1,8 +1,8 @@
-package online.pizzacrust.master.roblox;
+package online.pizzacrust.roblox;
 
 import java.util.List;
 
-import online.pizzacrust.master.roblox.group.Group;
+import online.pizzacrust.roblox.group.Group;
 
 /**
  * Represents a user on ROBLOX.com

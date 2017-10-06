@@ -1,11 +1,11 @@
-package online.pizzacrust.master.roblox.impl;
+package online.pizzacrust.roblox.impl;
 
 import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 
-import online.pizzacrust.master.roblox.Profile;
-import online.pizzacrust.master.roblox.errors.InvalidUserException;
+import online.pizzacrust.roblox.Profile;
+import online.pizzacrust.roblox.errors.InvalidUserException;
 
 public class BasicProfile implements Profile {
 

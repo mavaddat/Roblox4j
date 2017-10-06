@@ -1,21 +1,19 @@
-package online.pizzacrust.master.roblox.impl;
+package online.pizzacrust.roblox.impl;
 
 import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import online.pizzacrust.master.roblox.Badge;
-import online.pizzacrust.master.roblox.Roblox;
-import online.pizzacrust.master.roblox.Robloxian;
-import online.pizzacrust.master.roblox.errors.InvalidUserException;
-import online.pizzacrust.master.roblox.group.Group;
+import online.pizzacrust.roblox.Badge;
+import online.pizzacrust.roblox.Roblox;
+import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.errors.InvalidUserException;
+import online.pizzacrust.roblox.group.Group;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
     public BasicRobloxian(String username) throws InvalidUserException {

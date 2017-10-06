@@ -1,7 +1,7 @@
-package online.pizzacrust.master.roblox.impl;
+package online.pizzacrust.roblox.impl;
 
-import online.pizzacrust.master.roblox.Robloxian;
-import online.pizzacrust.master.roblox.errors.InvalidUserException;
+import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.errors.InvalidUserException;
 
 public class BasicReference implements Robloxian.LightReference {
 

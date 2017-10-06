@@ -1,4 +1,4 @@
-package online.pizzacrust.master.roblox.group;
+package online.pizzacrust.roblox.group;
 
 public interface Roleset {
 

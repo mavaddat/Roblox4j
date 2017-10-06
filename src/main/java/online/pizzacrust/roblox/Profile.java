@@ -1,4 +1,4 @@
-package online.pizzacrust.master.roblox;
+package online.pizzacrust.roblox;
 
 /**
  * Represents an entity that has a profile on ROBLOX.com.

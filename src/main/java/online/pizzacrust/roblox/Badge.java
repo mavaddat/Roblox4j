@@ -1,4 +1,4 @@
-package online.pizzacrust.master.roblox;
+package online.pizzacrust.roblox;
 
 public class Badge {
 
