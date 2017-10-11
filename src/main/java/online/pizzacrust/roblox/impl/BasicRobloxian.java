@@ -174,4 +174,13 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BasicRobloxian)) {
+            return false;
+        }
+        BasicRobloxian robloxian = (BasicRobloxian) obj;
+        return robloxian.getUserId() == this.getUserId();
+    }
+
 }

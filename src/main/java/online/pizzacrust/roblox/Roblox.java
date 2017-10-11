@@ -47,4 +47,45 @@ public class Roblox {
         System.out.println(getUserFromId(38043848).get().getUsername());
     }
 
+    private static boolean isInteger(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static Optional<Robloxian> format(String ori) {
+        if (!ori.contains(":")) {
+            // either name or id
+            if (!isInteger(ori)) {
+                // this name
+                return Roblox.get(ori);
+            } else {
+                // this num
+                return Roblox.getUserFromId(Integer.parseInt(ori));
+            }
+        } else {
+            // we have diff
+            String[] splitted = ori.split(":");
+            // check if 1 or 2
+            if (splitted.length == 1) {
+                return format(splitted[0]);
+            }
+            // else we parse
+            return Roblox.get(splitted[0]);
+
+        }
+    }
+
+    /**
+     * tag example: TGSCommander:myid
+     * @param tag
+     * @return
+     */
+    public static Optional<Robloxian> getFromTag(String tag) {
+        return format(tag);
+    }
+
 }
