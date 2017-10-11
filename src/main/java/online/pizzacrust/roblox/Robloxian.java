@@ -31,7 +31,7 @@ public interface Robloxian extends Profile {
     }
 
     /**
-     * Converts the object to a reference, not really useful but you can do it.
+     * Converts the object to a reference, not really useful but you can do it..
      * @return
      */
     LightReference toReference();
