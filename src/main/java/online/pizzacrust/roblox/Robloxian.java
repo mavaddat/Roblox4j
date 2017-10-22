@@ -1,8 +1,10 @@
 package online.pizzacrust.roblox;
 
 import java.util.List;
+import java.util.Optional;
 
 import online.pizzacrust.roblox.group.Group;
+import online.pizzacrust.roblox.group.Roleset;
 
 /**
  * Represents a user on ROBLOX.com
@@ -59,6 +61,19 @@ public interface Robloxian extends Profile {
      * @return
      */
     boolean isInGroup(Group group) throws Exception;
+
+    /**
+     * Retrieves the role of the person.
+     * @param group
+     * @return
+     * @throws Exception
+     */
+    default Optional<Roleset> getRoleInGroup(Group group) throws Exception {
+        if (isInGroup(group)) {
+            return Optional.ofNullable(group.getRole(this).orElse(null));
+        }
+        return Optional.empty();
+    }
 
     /**
      * Retrieves profile URL
