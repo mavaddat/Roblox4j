@@ -9,7 +9,9 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 import java.util.List;
 
+import online.pizzacrust.roblox.Asset;
 import online.pizzacrust.roblox.Badge;
+import online.pizzacrust.roblox.ClubType;
 import online.pizzacrust.roblox.Place;
 import online.pizzacrust.roblox.Roblox;
 import online.pizzacrust.roblox.Robloxian;
@@ -148,6 +150,45 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return badges;
     }
 
+    public static class AssetDataData {
+        public static class Data {
+            public String nextPageCursor;
+        }
+        public Data Data;
+    }
+
+    private List<String> getAssetRecursively(int assetId, String cursor) throws Exception {
+        String url = "https://www.roblox" +
+                ".com/users/inventory/list-json?assetTypeId=" + assetId + "&cursor=" + cursor +
+                "&itemsPerPage=100" +
+                "&pageNumber=1&sortOrder=Desc&userId=" + this.getUserId();
+        String string = Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text();
+        AssetDataData response1 = new Gson().fromJson(string, AssetDataData.class);
+        List<String> pages = new ArrayList<>();
+        pages.add(string);
+        if (response1.Data.nextPageCursor != null) {
+            pages.addAll(getAssetRecursively(assetId, response1.Data.nextPageCursor));
+        }
+        return pages;
+    }
+
+    private List<String> getAssetInventory(int assetId) throws Exception {
+        List<String> strings = new ArrayList<>();
+        String url = "https://www.roblox" +
+                ".com/users/inventory/list-json?assetTypeId=" + assetId + "&cursor="  +
+                "&itemsPerPage=100" +
+                "&pageNumber=1&sortOrder=Desc&userId=" + this.getUserId();
+        String string = Jsoup.connect(url).ignoreContentType(true)
+                .get().body().text();
+        AssetDataData response1 = new Gson().fromJson(string, AssetDataData.class);
+        strings.add(string);
+        if (response1.Data.nextPageCursor != null) {
+            strings.addAll(getAssetRecursively(assetId, response1.Data.nextPageCursor));
+        }
+        return strings;
+    }
+
     @Override
     public Badge[] getBadges() throws Exception {
         List<Badge> badges = new ArrayList<>();
@@ -187,6 +228,56 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
             places[i] = new BasicPlace(data.PlaceID, data.Plays, data.Name, data.Description);
         }
         return places;
+    }
+
+    @Override
+    public Asset[] getShirts() throws Exception {
+        return BasicAsset.getAssetsToArray(getAssetInventory(11));
+    }
+
+    @Override
+    public Asset[] getPants() throws Exception {
+        return new Asset[0];
+    }
+
+    @Override
+    public Asset[] getTshirts() throws Exception {
+        return new Asset[0];
+    }
+
+    @Override
+    public int getJoinTimeInDays() throws Exception {
+        return 0;
+    }
+
+    @Override
+    public int getForumPostAmount() throws Exception {
+        return 0;
+    }
+
+    @Override
+    public String getStatus() throws Exception {
+        return null;
+    }
+
+    @Override
+    public String getDescription() throws Exception {
+        return null;
+    }
+
+    @Override
+    public ClubType getClub() throws Exception {
+        return null;
+    }
+
+    @Override
+    public int getAmountOfFollowers() throws Exception {
+        return 0;
+    }
+
+    @Override
+    public int getAmountFollowing() throws Exception {
+        return 0;
     }
 
     public static void main(String... args) throws Exception {

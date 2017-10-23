@@ -96,4 +96,24 @@ public interface Robloxian extends Profile {
 
     Place[] getPlaces() throws Exception;
 
+    Asset[] getShirts() throws Exception;
+
+    Asset[] getPants() throws Exception;
+
+    Asset[] getTshirts() throws Exception;
+
+    int getJoinTimeInDays() throws Exception;
+
+    int getForumPostAmount() throws Exception;
+
+    String getStatus() throws Exception;
+
+    String getDescription() throws Exception;
+
+    ClubType getClub() throws Exception ;
+
+    int getAmountOfFollowers() throws Exception;
+
+    int getAmountFollowing() throws Exception;
+
 }
