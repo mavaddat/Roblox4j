@@ -171,7 +171,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
             public String Description;
             public String Name;
             public int Plays;
-            public int PlaceId;
+            public int PlaceID;
         }
         public GameData[] Games;
     }
@@ -184,18 +184,21 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         Place[] places = new Place[response.Games.length];
         for (int i = 0; i < response.Games.length; i++) {
             PlacesResponse.GameData data = response.Games[i];
-            places[i] = new BasicPlace(data.PlaceId, data.Plays, data.Name, data.Description);
+            places[i] = new BasicPlace(data.PlaceID, data.Plays, data.Name, data.Description);
         }
         return places;
     }
 
     public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
+        BasicRobloxian robloxian = new BasicRobloxian("pauljkl");
         Place[] places = robloxian.getPlaces();
         int placeVisits = 0;
         for (Place place : places) {
-            System.out.println(place.getName());
+            System.out.println(place.getName() + ", id: " + place.getId());
             placeVisits = placeVisits + place.getPlaceVisits();
+            for (String s : place.getThumbnailURLs()) {
+                System.out.println(s);
+            }
         }
         System.out.println("total place visits: " + placeVisits);
     }

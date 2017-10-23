@@ -1,5 +1,7 @@
 package online.pizzacrust.roblox;
 
+import java.util.List;
+
 public interface Place {
 
     String getName();
@@ -9,4 +11,7 @@ public interface Place {
     int getPlaceVisits();
 
     int getId();
+
+    List<String> getThumbnailURLs() throws Exception;
+
 }
