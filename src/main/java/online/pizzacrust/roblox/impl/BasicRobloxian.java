@@ -5,9 +5,13 @@ import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import online.pizzacrust.roblox.Asset;
 import online.pizzacrust.roblox.Badge;
@@ -247,6 +251,20 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public int getJoinTimeInDays() throws Exception {
+        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        Element rootNode = document.getElementsByClass("profile-stats-container").first();
+        Elements stats = rootNode.getElementsByClass("profile-stat");
+        for (Element stat : stats) {
+            String name = stat.getElementsByClass("text-label").first().text();
+            if (name.equalsIgnoreCase("Join Date")) {
+                String date = stat.getElementsByClass("text-lead").first().text();
+                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                Date currentDate = new Date();
+                Date newDate = format.parse(date);
+                long diff = currentDate.getTime() - newDate.getTime();
+                return Math.toIntExact(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+            }
+        }
         return 0;
     }
 
@@ -283,7 +301,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
-        System.out.println(robloxian.getDescription());
+        System.out.println(robloxian.getJoinTimeInDays());
     }
 
     @Override
