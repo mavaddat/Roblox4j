@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import online.pizzacrust.roblox.Badge;
+import online.pizzacrust.roblox.Place;
 import online.pizzacrust.roblox.Roblox;
 import online.pizzacrust.roblox.Robloxian;
 import online.pizzacrust.roblox.errors.InvalidUserException;
@@ -165,13 +166,38 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return badges.toArray(new Badge[badges.size()]);
     }
 
-    public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
-        Badge[] badges = robloxian.getBadges();
-        System.out.println("number of badges: " + badges.length);
-        for (Badge badge : badges) {
-            System.out.println("badge name: " + badge.getName());
+    public static class PlacesResponse {
+        public static class GameData {
+            public String Description;
+            public String Name;
+            public int Plays;
+            public int PlaceId;
         }
+        public GameData[] Games;
+    }
+
+    @Override
+    public Place[] getPlaces() throws Exception {
+        PlacesResponse response = new Gson().fromJson(Jsoup.connect("https://www.roblox" +
+                ".com/users/profile/playergames-json?userId=" + getUserId()).ignoreContentType
+                (true).get().body().text(), PlacesResponse.class);
+        Place[] places = new Place[response.Games.length];
+        for (int i = 0; i < response.Games.length; i++) {
+            PlacesResponse.GameData data = response.Games[i];
+            places[i] = new BasicPlace(data.PlaceId, data.Plays, data.Name, data.Description);
+        }
+        return places;
+    }
+
+    public static void main(String... args) throws Exception {
+        BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
+        Place[] places = robloxian.getPlaces();
+        int placeVisits = 0;
+        for (Place place : places) {
+            System.out.println(place.getName());
+            placeVisits = placeVisits + place.getPlaceVisits();
+        }
+        System.out.println("total place visits: " + placeVisits);
     }
 
     @Override

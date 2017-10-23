@@ -94,4 +94,6 @@ public interface Robloxian extends Profile {
      */
     Badge[] getBadges() throws Exception;
 
+    Place[] getPlaces() throws Exception;
+
 }
