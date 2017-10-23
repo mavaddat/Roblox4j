@@ -237,12 +237,12 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public Asset[] getPants() throws Exception {
-        return new Asset[0];
+        return BasicAsset.getAssetsToArray(getAssetInventory(12));
     }
 
     @Override
     public Asset[] getTshirts() throws Exception {
-        return new Asset[0];
+        return BasicAsset.getAssetsToArray(getAssetInventory(2));
     }
 
     @Override
