@@ -262,7 +262,8 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public String getDescription() throws Exception {
-        return null;
+        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        return document.getElementsByClass("profile-about-content-text").first().text();
     }
 
     @Override
@@ -281,17 +282,8 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("pauljkl");
-        Place[] places = robloxian.getPlaces();
-        int placeVisits = 0;
-        for (Place place : places) {
-            System.out.println(place.getName() + ", id: " + place.getId());
-            placeVisits = placeVisits + place.getPlaceVisits();
-            for (String s : place.getThumbnailURLs()) {
-                System.out.println(s);
-            }
-        }
-        System.out.println("total place visits: " + placeVisits);
+        BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
+        System.out.println(robloxian.getDescription());
     }
 
     @Override
