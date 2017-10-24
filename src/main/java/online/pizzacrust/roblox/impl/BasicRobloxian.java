@@ -270,6 +270,16 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public int getForumPostAmount() throws Exception {
+        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        Element rootNode = document.getElementsByClass("profile-stats-container").first();
+        Elements stats = rootNode.getElementsByClass("profile-stat");
+        for (Element stat : stats) {
+            String name = stat.getElementsByClass("text-label").first().text();
+            if (name.equalsIgnoreCase("Forum Posts")) {
+                String lead = stat.getElementsByClass("text-lead").first().text();
+                return Integer.parseInt(lead);
+            }
+        }
         return 0;
     }
 
@@ -301,7 +311,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
-        System.out.println(robloxian.getJoinTimeInDays());
+        System.out.println(robloxian.getForumPostAmount());
     }
 
     @Override
