@@ -296,7 +296,21 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public ClubType getClub() throws Exception {
-        return null;
+        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        Element root = document.getElementsByClass("profile-header-top").first();
+        Element topPart = root.getElementsByClass("header-title").first();
+        Elements bc = topPart.getElementsByTag("span");
+        if (bc.size() == 0) {
+            return ClubType.NONE;
+        }
+        String bcType = bc.first().className();
+        if (bcType.equalsIgnoreCase("icon-bc")) {
+            return ClubType.CLASSIC;
+        }
+        if (bcType.equalsIgnoreCase("icon-tbc")) {
+            return ClubType.TURBO;
+        }
+        return ClubType.OUTRAGEOUS;
     }
 
     @Override
@@ -310,8 +324,8 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
-        System.out.println(robloxian.getForumPostAmount());
+        BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
+        System.out.println(robloxian.getClub().name());
     }
 
     @Override
