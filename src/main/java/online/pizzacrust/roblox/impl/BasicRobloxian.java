@@ -23,8 +23,14 @@ import online.pizzacrust.roblox.errors.InvalidUserException;
 import online.pizzacrust.roblox.group.Group;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
+    private final Document document;
     public BasicRobloxian(String username) throws InvalidUserException {
         super(username);
+        try {
+            document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        } catch (Exception e) {
+            throw new InvalidUserException();
+        }
     }
 
     @Override
@@ -78,13 +84,14 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     @Override
     public List<String> getPastUsernames() throws Exception {
         List<String> names = new ArrayList<>();
-        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         Element rootNode = document.getElementsByClass("profile-name-history").first();
-        Element pastNamesElement = rootNode.getElementsByClass("tooltip-pastnames").first();
-        String pastNamesUnparsed = pastNamesElement.attr("title");
-        String[] splitted = pastNamesUnparsed.split(",");
-        for (String s : splitted) {
-            names.add(s.trim());
+        if (rootNode != null) {
+            Element pastNamesElement = rootNode.getElementsByClass("tooltip-pastnames").first();
+            String pastNamesUnparsed = pastNamesElement.attr("title");
+            String[] splitted = pastNamesUnparsed.split(",");
+            for (String s : splitted) {
+                names.add(s.trim());
+            }
         }
         return names;
     }
@@ -251,7 +258,6 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public int getJoinTimeInDays() throws Exception {
-        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         Element rootNode = document.getElementsByClass("profile-stats-container").first();
         Elements stats = rootNode.getElementsByClass("profile-stat");
         for (Element stat : stats) {
@@ -270,7 +276,6 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public int getForumPostAmount() throws Exception {
-        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         Element rootNode = document.getElementsByClass("profile-stats-container").first();
         Elements stats = rootNode.getElementsByClass("profile-stat");
         for (Element stat : stats) {
@@ -290,13 +295,11 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public String getDescription() throws Exception {
-        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         return document.getElementsByClass("profile-about-content-text").first().text();
     }
 
     @Override
     public ClubType getClub() throws Exception {
-        Document document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         Element root = document.getElementsByClass("profile-header-top").first();
         Element topPart = root.getElementsByClass("header-title").first();
         Elements bc = topPart.getElementsByTag("span");

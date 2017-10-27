@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,12 +52,20 @@ public class BasicGroup implements Group{
         return data.Name;
     }
 
-    public static class PlayersData {
-        public static class PlayerData {
-            public int userId;
-            public String username;
+    private Robloxian.LightReference[] recursiveRetrieve(Roleset roleset, String cursor) throws IOException {
+        String url = "https://groups.roblox" +
+                ".com/v1/groups/" + groupId + "/roles/" + roleset.getId() +
+                "/users?sortOrder=Asc&limit=100&cursor=" + cursor;
+        PlayersData data = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true).get()
+                .body().text(), PlayersData.class);
+        List<Robloxian.LightReference> references = new ArrayList<>();
+        for (PlayersData.PlayerData datum : data.data) {
+            references.add(new BasicReference(datum.userId, datum.username));
         }
-        public PlayerData[] data;
+        if (data.nextPageCursor != null) {
+            Collections.addAll(references, recursiveRetrieve(roleset, data.nextPageCursor));
+        }
+        return references.toArray(new Robloxian.LightReference[references.size()]);
     }
 
     @Override
@@ -68,6 +78,9 @@ public class BasicGroup implements Group{
         List<Robloxian.LightReference> references = new ArrayList<>();
         for (PlayersData.PlayerData datum : data.data) {
             references.add(new BasicReference(datum.userId, datum.username));
+        }
+        if (data.nextPageCursor != null) {
+            Collections.addAll(references, recursiveRetrieve(roleset, data.nextPageCursor));
         }
         return references.toArray(new Robloxian.LightReference[references.size()]);
     }
@@ -94,20 +107,14 @@ public class BasicGroup implements Group{
         return groupId;
     }
 
-    public static void main(String... args) throws Exception {
-        BasicGroup group = new BasicGroup(860594);
-        BasicRobloxian robloxian = new BasicRobloxian("Swatcommader6");
-        System.out.println(group.getRole(robloxian).get().getName());
-        /*
-        for (Roleset roleset : group.getRolesets()) {
-            System.out.println("role name: " + roleset.getName());
-            System.out.println("role id: " + roleset.getId());
-            for (Robloxian.LightReference lightReference : group.getMembersInRole(roleset)) {
-                System.out.println(lightReference);
-            }
+    public static class PlayersData {
+        public static class PlayerData {
+            public int userId;
+            public String username;
         }
-        */
 
+        public String nextPageCursor;
+        public PlayerData[] data;
     }
 
 }
