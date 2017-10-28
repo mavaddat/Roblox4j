@@ -112,8 +112,4 @@ public interface Robloxian extends Profile {
 
     ClubType getClub() throws Exception ;
 
-    int getAmountOfFollowers() throws Exception;
-
-    int getAmountFollowing() throws Exception;
-
 }

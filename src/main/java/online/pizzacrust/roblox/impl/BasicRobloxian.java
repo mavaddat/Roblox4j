@@ -316,16 +316,6 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return ClubType.OUTRAGEOUS;
     }
 
-    @Override
-    public int getAmountOfFollowers() throws Exception {
-        return 0;
-    }
-
-    @Override
-    public int getAmountFollowing() throws Exception {
-        return 0;
-    }
-
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
         System.out.println(robloxian.getClub().name());
