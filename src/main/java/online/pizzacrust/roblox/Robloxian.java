@@ -112,4 +112,6 @@ public interface Robloxian extends Profile {
 
     ClubType getClub() throws Exception ;
 
+    String getProfileImageUrl() throws Exception;
+
 }

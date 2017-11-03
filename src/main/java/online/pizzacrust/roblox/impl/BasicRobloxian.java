@@ -316,9 +316,16 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         return ClubType.OUTRAGEOUS;
     }
 
+    @Override
+    public String getProfileImageUrl() throws Exception {
+        Element rootNode = document.getElementsByClass("thumbnail-span").first();
+        Element img = rootNode.getElementsByTag("img").first();
+        return img.attr("src");
+    }
+
     public static void main(String... args) throws Exception {
         BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
-        System.out.println(robloxian.getClub().name());
+        System.out.println(robloxian.getProfileImageUrl());
     }
 
     @Override
