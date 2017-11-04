@@ -282,7 +282,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
             String name = stat.getElementsByClass("text-label").first().text();
             if (name.equalsIgnoreCase("Forum Posts")) {
                 String lead = stat.getElementsByClass("text-lead").first().text();
-                return Integer.parseInt(lead);
+                return Integer.parseInt(lead.replace(",", ""));
             }
         }
         return 0;
