@@ -6,6 +6,7 @@
 
     <groupId>online.pizzacrust</groupId>
     <artifactId>Roblox4j</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -34,6 +35,10 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>RobloxAPI</module>
+        <module>RobloxImpl</module>
+    </modules>
 
     <dependencies>
         <dependency>

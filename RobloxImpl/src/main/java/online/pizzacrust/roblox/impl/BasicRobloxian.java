@@ -17,7 +17,6 @@ import online.pizzacrust.roblox.api.Asset;
 import online.pizzacrust.roblox.api.Badge;
 import online.pizzacrust.roblox.api.ClubType;
 import online.pizzacrust.roblox.api.Place;
-import online.pizzacrust.roblox.api.Roblox;
 import online.pizzacrust.roblox.api.Robloxian;
 import online.pizzacrust.roblox.api.errors.InvalidUserException;
 import online.pizzacrust.roblox.api.group.Group;

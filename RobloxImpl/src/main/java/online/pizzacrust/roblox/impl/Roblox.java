@@ -1,4 +1,4 @@
-package online.pizzacrust.roblox.api;
+package online.pizzacrust.roblox.impl;
 
 import com.google.gson.Gson;
 
@@ -6,11 +6,9 @@ import org.jsoup.Jsoup;
 
 import java.util.Optional;
 
+import online.pizzacrust.roblox.api.Robloxian;
 import online.pizzacrust.roblox.api.errors.InvalidUserException;
 import online.pizzacrust.roblox.api.group.Group;
-import online.pizzacrust.roblox.impl.BasicGroup;
-import online.pizzacrust.roblox.impl.BasicProfile;
-import online.pizzacrust.roblox.impl.BasicRobloxian;
 
 public class Roblox {
 
@@ -29,7 +27,7 @@ public class Roblox {
 
     public static Optional<Robloxian> getUserFromId(int userId) {
         try {
-            String url = "https://api.roblox.com/Users/" + userId;
+            String url = "https://online.pizzacrust.roblox.api.roblox.com/Users/" + userId;
             String response = Jsoup.connect(url).ignoreContentType(true).get().body().text();
             BasicProfile.Response response1 = new Gson().fromJson(response, BasicProfile.Response
                     .class);
