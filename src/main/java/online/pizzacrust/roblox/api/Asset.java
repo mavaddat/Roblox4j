@@ -1,4 +1,4 @@
-package online.pizzacrust.roblox;
+package online.pizzacrust.roblox.api;
 
 public interface Asset {
 

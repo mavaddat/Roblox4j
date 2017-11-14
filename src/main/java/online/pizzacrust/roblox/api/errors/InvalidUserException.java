@@ -1,4 +1,4 @@
-package online.pizzacrust.roblox.errors;
+package online.pizzacrust.roblox.api.errors;
 
 /**
  * Throws when the user specified in any user based class/method is invalid.

@@ -13,14 +13,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import online.pizzacrust.roblox.Asset;
-import online.pizzacrust.roblox.Badge;
-import online.pizzacrust.roblox.ClubType;
-import online.pizzacrust.roblox.Place;
-import online.pizzacrust.roblox.Roblox;
-import online.pizzacrust.roblox.Robloxian;
-import online.pizzacrust.roblox.errors.InvalidUserException;
-import online.pizzacrust.roblox.group.Group;
+import online.pizzacrust.roblox.api.Asset;
+import online.pizzacrust.roblox.api.Badge;
+import online.pizzacrust.roblox.api.ClubType;
+import online.pizzacrust.roblox.api.Place;
+import online.pizzacrust.roblox.api.Roblox;
+import online.pizzacrust.roblox.api.Robloxian;
+import online.pizzacrust.roblox.api.errors.InvalidUserException;
+import online.pizzacrust.roblox.api.group.Group;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
     private final Document document;

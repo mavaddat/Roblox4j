@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 
-import online.pizzacrust.roblox.Profile;
-import online.pizzacrust.roblox.errors.InvalidUserException;
+import online.pizzacrust.roblox.api.Profile;
+import online.pizzacrust.roblox.api.errors.InvalidUserException;
 
 public class BasicProfile implements Profile {
 

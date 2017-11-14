@@ -1,4 +1,4 @@
-package online.pizzacrust.roblox;
+package online.pizzacrust.roblox.api;
 
 import com.google.gson.Gson;
 
@@ -6,8 +6,8 @@ import org.jsoup.Jsoup;
 
 import java.util.Optional;
 
-import online.pizzacrust.roblox.errors.InvalidUserException;
-import online.pizzacrust.roblox.group.Group;
+import online.pizzacrust.roblox.api.errors.InvalidUserException;
+import online.pizzacrust.roblox.api.group.Group;
 import online.pizzacrust.roblox.impl.BasicGroup;
 import online.pizzacrust.roblox.impl.BasicProfile;
 import online.pizzacrust.roblox.impl.BasicRobloxian;

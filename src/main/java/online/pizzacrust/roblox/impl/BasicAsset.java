@@ -5,9 +5,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import online.pizzacrust.roblox.Asset;
-import online.pizzacrust.roblox.Roblox;
-import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.api.Asset;
+import online.pizzacrust.roblox.api.Roblox;
+import online.pizzacrust.roblox.api.Robloxian;
 
 public class BasicAsset implements Asset {
 

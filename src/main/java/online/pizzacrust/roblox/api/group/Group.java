@@ -1,9 +1,9 @@
-package online.pizzacrust.roblox.group;
+package online.pizzacrust.roblox.api.group;
 
 import java.util.List;
 import java.util.Optional;
 
-import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.api.Robloxian;
 
 public interface Group {
 

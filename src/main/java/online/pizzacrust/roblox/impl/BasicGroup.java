@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import online.pizzacrust.roblox.Robloxian;
-import online.pizzacrust.roblox.group.Group;
-import online.pizzacrust.roblox.group.Roleset;
+import online.pizzacrust.roblox.api.Robloxian;
+import online.pizzacrust.roblox.api.group.Group;
+import online.pizzacrust.roblox.api.group.Roleset;
 
 public class BasicGroup implements Group{
 

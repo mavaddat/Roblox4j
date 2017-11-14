@@ -1,6 +1,6 @@
 package online.pizzacrust.roblox.impl;
 
-import online.pizzacrust.roblox.group.Roleset;
+import online.pizzacrust.roblox.api.group.Roleset;
 
 public class BasicRoleset implements Roleset {
     private final int rankIndex;

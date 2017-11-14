@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import online.pizzacrust.roblox.Place;
+import online.pizzacrust.roblox.api.Place;
 
 public class BasicPlace implements Place {
 
