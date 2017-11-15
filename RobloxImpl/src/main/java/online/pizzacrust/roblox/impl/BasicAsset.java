@@ -7,6 +7,7 @@ import java.util.List;
 
 import online.pizzacrust.roblox.api.Asset;
 import online.pizzacrust.roblox.api.Robloxian;
+import online.pizzacrust.roblox.impl.access.Roblox;
 
 public class BasicAsset implements Asset {
 
