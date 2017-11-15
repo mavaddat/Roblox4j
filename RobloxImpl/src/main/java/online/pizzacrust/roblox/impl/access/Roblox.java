@@ -30,7 +30,7 @@ public class Roblox {
 
     public static Optional<Robloxian> getUserFromId(int userId) {
         try {
-            String url = "https://online.pizzacrust.roblox.api.roblox.com/Users/" + userId;
+            String url = "https://api.roblox.com/Users/" + userId;
             String response = Jsoup.connect(url).ignoreContentType(true).get().body().text();
             BasicProfile.Response response1 = new Gson().fromJson(response, BasicProfile.Response
                     .class);

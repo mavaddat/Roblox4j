@@ -20,6 +20,7 @@ import online.pizzacrust.roblox.api.Place;
 import online.pizzacrust.roblox.api.Robloxian;
 import online.pizzacrust.roblox.api.errors.InvalidUserException;
 import online.pizzacrust.roblox.api.group.Group;
+import online.pizzacrust.roblox.impl.access.Roblox;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
     private final Document document;
