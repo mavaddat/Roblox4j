@@ -17,7 +17,7 @@ public class BasicProfile implements Profile {
             throw new InvalidUserException();
         }
         try {
-            String baseUrl = "https:/api.roblox" +
+            String baseUrl = "https://api.roblox" +
                     ".com/users/get-by-username?username=" + username;
             Response response = new Gson().fromJson(Jsoup.connect(baseUrl).ignoreContentType(true)
                     .get().body().text(), Response.class);
