@@ -15,3 +15,7 @@
 !/README.md
 !/LICENSE.txt
 !.gitignore
+!/RobloxAPI
+!/RobloxImpl
+RobloxAPI/RobloxAPI.iml
+RobloxImpl/RobloxImpl.iml
