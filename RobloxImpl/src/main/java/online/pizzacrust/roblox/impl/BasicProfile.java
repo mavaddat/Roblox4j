@@ -46,7 +46,7 @@ public class BasicProfile implements Profile {
 
     public static boolean doesUserExist(String username) {
         try {
-            String baseUrl = "https://online.pizzacrust.roblox.api.roblox" +
+            String baseUrl = "https://api.roblox" +
                     ".com/users/get-by-username?username=" + username;
             String response = new Gson().fromJson(Jsoup.connect(baseUrl).ignoreContentType(true)
                     .get().body().text(), Response.class).Username;
