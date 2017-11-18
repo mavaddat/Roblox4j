@@ -31,7 +31,7 @@ public class BasicGroup implements Group{
     @Override
     public List<Roleset> getRolesets() throws Exception {
         List<Roleset> rolesets = new ArrayList<>();
-        String url = "https://www.roblox.com/online.pizzacrust.roblox.api/groups/" + groupId + "/RoleSets/";
+        String url = "https://www.roblox.com/api/groups/" + groupId + "/RoleSets/";
         RolesetData[] data = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true).get()
                 .body().text(), RolesetData[].class);
         for (RolesetData datum : data) {
@@ -46,7 +46,7 @@ public class BasicGroup implements Group{
 
     @Override
     public String getName() throws Exception {
-        String url = "https://online.pizzacrust.roblox.api.roblox.com/groups/" + groupId;
+        String url = "https://api.roblox.com/groups/" + groupId;
         NameData data = new Gson().fromJson(Jsoup.connect(url).ignoreContentType(true).get().body
                 ().text(), NameData.class);
         return data.Name;
