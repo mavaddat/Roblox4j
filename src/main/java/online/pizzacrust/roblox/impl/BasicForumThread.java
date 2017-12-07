@@ -1,6 +1,5 @@
 package online.pizzacrust.roblox.impl;
 
-import com.google.common.collect.Lists;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -100,6 +99,7 @@ public class BasicForumThread implements ForumThread {
         return documents;
     }
 
+    /*
     public static class ProcessAlts implements Callable<List<ForumResponse>> {
 
         private final List<String> errors;
@@ -177,6 +177,7 @@ public class BasicForumThread implements ForumThread {
             System.out.println(string);
         }
     }
+    */
 
     public static class Test {
         public static void main(String... args) throws Exception {
