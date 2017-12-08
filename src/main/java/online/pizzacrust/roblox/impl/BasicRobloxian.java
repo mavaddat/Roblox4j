@@ -27,8 +27,10 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     public BasicRobloxian(String username) throws InvalidUserException {
         super(username);
         try {
+            enableSSLSocket();
             document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new InvalidUserException();
         }
     }
