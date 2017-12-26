@@ -104,10 +104,6 @@ public interface Robloxian extends Profile {
 
     int getJoinTimeInDays() throws Exception;
 
-    int getForumPostAmount() throws Exception;
-
-    String getStatus() throws Exception;
-
     String getDescription() throws Exception;
 
     ClubType getClub() throws Exception ;

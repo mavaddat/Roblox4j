@@ -277,25 +277,6 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     @Override
-    public int getForumPostAmount() throws Exception {
-        Element rootNode = document.getElementsByClass("profile-stats-container").first();
-        Elements stats = rootNode.getElementsByClass("profile-stat");
-        for (Element stat : stats) {
-            String name = stat.getElementsByClass("text-label").first().text();
-            if (name.equalsIgnoreCase("Forum Posts")) {
-                String lead = stat.getElementsByClass("text-lead").first().text();
-                return Integer.parseInt(lead.replace(",", ""));
-            }
-        }
-        return 0;
-    }
-
-    @Override
-    public String getStatus() throws Exception {
-        return null;
-    }
-
-    @Override
     public String getDescription() throws Exception {
         return document.getElementsByClass("profile-about-content-text").first().text();
     }
