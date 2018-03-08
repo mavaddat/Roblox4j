@@ -110,4 +110,6 @@ public interface Robloxian extends Profile {
 
     String getProfileImageUrl() throws Exception;
 
+    CachedGroupData[] getCachedGroupData() throws Exception;
+
 }

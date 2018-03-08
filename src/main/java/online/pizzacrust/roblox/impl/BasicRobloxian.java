@@ -9,12 +9,14 @@ import org.jsoup.select.Elements;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import online.pizzacrust.roblox.Asset;
 import online.pizzacrust.roblox.Badge;
+import online.pizzacrust.roblox.CachedGroupData;
 import online.pizzacrust.roblox.ClubType;
 import online.pizzacrust.roblox.Place;
 import online.pizzacrust.roblox.Roblox;
@@ -118,6 +120,10 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         public GroupData[] Groups;
     }
 
+    public static class CachedResponse {
+        public CachedGroupData[] Groups;
+    }
+
     @Override
     public Group[] getGroups() throws Exception {
         String url = "https://www.roblox.com/users/profile/playergroups-json?userId=" + this
@@ -129,6 +135,15 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
             groups.add(Roblox.get(group.Id));
         }
         return groups.toArray(new Group[groups.size()]);
+    }
+
+    @Override
+    public CachedGroupData[] getCachedGroupData() throws Exception {
+        String url = "https://www.roblox.com/users/profile/playergroups-json?userId=" + this
+                .getUserId();
+        CachedResponse cachedResponse = new Gson().fromJson(Jsoup.connect(url).ignoreContentType
+                (true).get().body().text(), CachedResponse.class);
+        return cachedResponse.Groups;
     }
 
     public static class BadgesResponse {
@@ -307,8 +322,8 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
     }
 
     public static void main(String... args) throws Exception {
-        BasicRobloxian robloxian = new BasicRobloxian("SurpriseParty");
-        System.out.println(robloxian.getProfileImageUrl());
+        BasicRobloxian robloxian = new BasicRobloxian("TGSCommander");
+        System.out.println(Arrays.toString(robloxian.getCachedGroupData()));
     }
 
     @Override
