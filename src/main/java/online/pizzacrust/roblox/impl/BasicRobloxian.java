@@ -19,8 +19,10 @@ import online.pizzacrust.roblox.Badge;
 import online.pizzacrust.roblox.CachedGroupData;
 import online.pizzacrust.roblox.ClubType;
 import online.pizzacrust.roblox.Place;
+import online.pizzacrust.roblox.Presence;
 import online.pizzacrust.roblox.Roblox;
 import online.pizzacrust.roblox.Robloxian;
+import online.pizzacrust.roblox.auth.AuthenticationInfo;
 import online.pizzacrust.roblox.errors.InvalidUserException;
 import online.pizzacrust.roblox.group.Group;
 
@@ -144,6 +146,11 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
         CachedResponse cachedResponse = new Gson().fromJson(Jsoup.connect(url).ignoreContentType
                 (true).get().body().text(), CachedResponse.class);
         return cachedResponse.Groups;
+    }
+
+    @Override
+    public Presence getPresence(AuthenticationInfo authenticationInfo) throws Exception  {
+        return Presence.getPresenceForUsers(Arrays.asList(this), authenticationInfo).get(0);
     }
 
     public static class BadgesResponse {

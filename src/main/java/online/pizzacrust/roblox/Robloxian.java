@@ -3,6 +3,7 @@ package online.pizzacrust.roblox;
 import java.util.List;
 import java.util.Optional;
 
+import online.pizzacrust.roblox.auth.AuthenticationInfo;
 import online.pizzacrust.roblox.group.Group;
 import online.pizzacrust.roblox.group.Roleset;
 
@@ -111,5 +112,7 @@ public interface Robloxian extends Profile {
     String getProfileImageUrl() throws Exception;
 
     CachedGroupData[] getCachedGroupData() throws Exception;
+
+    Presence getPresence(AuthenticationInfo authenticationInfo) throws Exception;
 
 }
