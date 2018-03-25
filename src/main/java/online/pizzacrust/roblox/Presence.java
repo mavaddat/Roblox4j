@@ -147,4 +147,18 @@ public class Presence {
     public Status getStatus() {
         return status;
     }
+
+    public String getCurrentPlaceName() {
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> list = new ArrayList<>(Arrays.asList(getLastLocation().split(" ")));
+        list.remove(0);
+        for (String s : list) {
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
+    }
+
+    public String getCurrentPlaceLink() {
+        return "https://www.roblox.com/games/" + getRootPlaceId() + "/redirect";
+    }
 }
