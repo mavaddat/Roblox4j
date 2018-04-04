@@ -3,11 +3,15 @@ package online.pizzacrust.roblox.impl;
 import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import online.pizzacrust.roblox.Robloxian;
@@ -105,6 +109,92 @@ public class BasicGroup implements Group{
     @Override
     public int getId() {
         return groupId;
+    }
+
+    private String index(int i) {
+        String iS = "" + i;
+        if (iS.toCharArray().length == 1) {
+            return "0" + iS;
+        }
+        return iS;
+    }
+
+    // __eventtarget, scriptmanager, eventvalidation, viewstate, viewstategenerator
+    private Map<String, String> getRequiredFormData(int nextIndex,
+                                                    Document currentPage) {
+        HashMap<String, String> formDataMap = new HashMap<>();
+        formDataMap.put("ctl00$ScriptManager",
+                "ctl00$cphRoblox$rbxGroupAlliesPane$RelationshipsUpdatePanel" +
+                "|ctl00$cphRoblox$rbxGroupAlliesPane$RelationshipsDataPager$ctl00$ctl" + index
+                        (nextIndex));
+        formDataMap.put("__EVENTTARGET",
+                "ctl00$cphRoblox$rbxGroupAlliesPane$RelationshipsDataPager$ctl00$ctl" + index(nextIndex));
+        formDataMap.put("__EVENTVALIDATION", currentPage.getElementById("__EVENTVALIDATION").attr
+                ("value"));
+        formDataMap.put("__VIEWSTATEGENERATOR", currentPage.getElementById
+                ("__VIEWSTATEGENERATOR").attr("value"));
+        formDataMap.put("__VIEWSTATE", currentPage.getElementById("__VIEWSTATE").attr("value"));
+        return formDataMap;
+    }
+
+    private boolean moreAllyPages(Document document) {
+        Element root = document.getElementById
+                ("ctl00_cphRoblox_rbxGroupAlliesPane_RelationshipsDataPager");
+        for (Element a : root.getElementsByTag("a")) {
+            if (a.text().equalsIgnoreCase("Next")) {
+                if (!a.hasAttr("disabled")) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
+    }
+
+    private List<Group> parsePage(Document document) {
+        Element root = document.getElementsByClass("grouprelationshipscontainer").first();
+        List<Group> groups = new ArrayList<>();
+        for (Element div : root.getElementsByTag("div")) {
+            if (div.attr("style").equalsIgnoreCase("width:42px;height:42px;padding:8px;" +
+                    "float:left")) {
+                groups.add(new BasicGroup(Integer.parseInt(div.getElementsByTag("a").first().attr
+                        ("href").split
+                        ("=")[1])));
+            }
+        }
+        return groups;
+    }
+
+    private List<Group> recursiveGetAllies(int nIndex, Document prevPage) throws IOException {
+        Map<String, String> form = getRequiredFormData(nIndex, prevPage);
+        String url = "https://www.roblox.com/Groups/Group.aspx?gid=" + groupId;
+        Document document = Jsoup.connect(url).data(form).post();
+        List<Group> groups = new ArrayList<>(parsePage(document));
+        if (moreAllyPages(document)) {
+            groups.addAll(recursiveGetAllies(nIndex + 1, document));
+        }
+        return groups;
+    }
+
+    @Override
+    public List<Group> getAllies() throws Exception {
+        String url = "https://www.roblox.com/Groups/Group.aspx?gid=" + groupId;
+        Document document = Jsoup.connect(url).get();
+        List<Group> groups = new ArrayList<>(parsePage(document));
+        if (moreAllyPages(document)) {
+            // recursive method
+            groups.addAll(recursiveGetAllies(1, document));
+        }
+        return groups;
+    }
+
+    public static void main(String... args) throws Exception {
+        BasicGroup basicGroup = new BasicGroup(2900057);
+        for (Group group : basicGroup.getAllies()) {
+            System.out.println(group.getName() + "#" + group.getId()
+            );
+        }
+        System.out.println("Total: " + basicGroup.getAllies().size());
     }
 
     public static class PlayersData {

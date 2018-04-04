@@ -22,4 +22,6 @@ public interface Group {
 
     int getId();
 
+    List<Group> getAllies() throws Exception;
+
 }
