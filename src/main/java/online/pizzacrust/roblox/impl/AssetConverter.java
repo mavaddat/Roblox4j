@@ -37,6 +37,10 @@ public class AssetConverter {
                     "operations" +
                     " are supported.");
         }
+        if (asset.getType() == convertTo) {
+            throw new UnsupportedOperationException("There is no point in casting the own type of" +
+                    " the current type of the asset.");
+        }
         this.originalAsset = asset;
         this.convertTo = convertTo;
     }
