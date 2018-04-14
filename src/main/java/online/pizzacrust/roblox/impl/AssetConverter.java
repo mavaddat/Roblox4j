@@ -57,22 +57,16 @@ public class AssetConverter {
             // check if it is owned by user, if so, do user requirements for asset check
             String date = attemptAsset.getLastUpdatedDate().split("T")[0];
             String oriDate = originalAsset.getLastUpdatedDate().split("T")[0];
-            String hour = attemptAsset.getLastUpdatedDate().split("T")[1].split(":")[0];
-            String oriHour = originalAsset.getLastUpdatedDate().split("T")[1].split(":")[0];
-            String minute = attemptAsset.getLastUpdatedDate().split("T")[1].split(":")[1];
-            String oriMinute = originalAsset.getLastUpdatedDate().split("T")[1].split(":")[1];
             String desc = attemptAsset.getDescription();
             if (originalAsset.isOwnedByGroup()) {
                 // group
-                if (desc.equalsIgnoreCase("Decal Image") && date.equalsIgnoreCase(oriDate) &&
-                        hour.equalsIgnoreCase(oriHour) && minute.equalsIgnoreCase(oriMinute)) {
+                if (desc.equalsIgnoreCase("Decal Image") && date.equalsIgnoreCase(oriDate)) {
                     return attemptAsset;
                 }
             } else {
                 // user
-                if (attemptAsset.getOwner().get().getUserId() == attemptAsset.getOwner().get()
-                        .getUserId() && date.equalsIgnoreCase(oriDate) && hour.equalsIgnoreCase
-                        (oriHour) && minute.equalsIgnoreCase(oriMinute)) {
+                if (attemptAsset.getOwner().get().getUserId() == originalAsset.getOwner().get()
+                        .getUserId() && date.equalsIgnoreCase(oriDate)) {
                     return attemptAsset;
                 }
             }
