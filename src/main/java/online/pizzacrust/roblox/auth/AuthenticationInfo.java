@@ -38,17 +38,21 @@ public class AuthenticationInfo {
             Headers headers = Unirest.post("https://www.roblox.com/newlogin").field("username",
                     username).field
                     ("password", password).asString().getHeaders();
-            String token = null;
-            for (String s : headers.get("Set-Cookie")) {
-                if (s.contains(".ROBLOSECURITY")) {
-                    token = s.split(";")[0];
+            final String[] token = {null};
+            headers.forEach((key, value) -> {
+                if (key.equalsIgnoreCase("Set-Cookie")) {
+                    for (String s : value) {
+                        if (s.contains(".ROBLOSECURITY")) {
+                            token[0] = s;
+                        }
+                    }
                 }
-            }
-            if (token == null) throw new RuntimeException();
+            });
+            if (token[0] == null) throw new RuntimeException();
             String verifyToken = Unirest.post("https://api.roblox.com/sign-out/v1").header
                     ("Cookie",
-                    token + ";").asString().getHeaders().getFirst("X-CSRF-TOKEN");
-            return new AuthenticationInfo(token, verifyToken);
+                    token[0] + ";").asString().getHeaders().getFirst("X-CSRF-TOKEN");
+            return new AuthenticationInfo(token[0], verifyToken);
         } catch (Exception e) {
             e.printStackTrace();
             throw new AuthenticationException();
