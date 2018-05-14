@@ -30,9 +30,9 @@ public class Presence {
 
     Presence() {}
 
-    public static Map<Robloxian, Presence> getPresenceForUsers(List<Robloxian> robloxianList,
+    public static Map<Profile, Presence> getPresenceForUsers(List<Profile> robloxianList,
                                             AuthenticationInfo authenticationInfo) throws Exception {
-        Map<Robloxian, Presence> map = new HashMap<>();
+        Map<Profile, Presence> map = new HashMap<>();
         List<Integer> integers = new ArrayList<>();
         robloxianList.forEach((r) -> integers.add(r.getUserId()));
         String url = "https://presence.roblox.com/v1/presence/users";
