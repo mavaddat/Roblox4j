@@ -136,7 +136,7 @@ public class Presence {
         return placeId;
     }
 
-    public int getRootPlaceId() {
+    public Integer getRootPlaceId() {
         return rootPlaceId;
     }
 
