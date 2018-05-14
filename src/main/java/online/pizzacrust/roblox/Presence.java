@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import online.pizzacrust.roblox.auth.AuthenticationInfo;
 
@@ -55,9 +54,11 @@ public class Presence {
     public static void main(String... args) throws Exception {
         AuthenticationInfo authenticationInfo = AuthenticationInfo.authenticate(args[0], args[1]);
         getPresenceForUsers(Arrays.asList(Roblox.get("TGSCommander").get(), Roblox.get("TimGeithner")
-                .get()), authenticationInfo).forEach((r, p) -> System.out.println(p.getStatus()
+                .get()), authenticationInfo).forEach((r, p) -> System.out.println( r.getUsername
+                () +  " - " + p
+                .getStatus()
                 .get().name()
-                + " - Last seen: " + p.getDate()));
+                + " - Last seen: " + p.getDate() + " - " + p.getRootPlaceId()));
     }
 
     public static class PresenceRequest {
@@ -110,7 +111,7 @@ public class Presence {
 
     public Optional<Status> getStatus() {
         if (status != null) {
-            Optional.of(Status.getFromId(status));
+            return Optional.of(Status.getFromId(status));
         }
         return Optional.empty();
     }
