@@ -150,7 +150,7 @@ public class BasicRobloxian extends BasicProfile implements Robloxian {
 
     @Override
     public Presence getPresence(AuthenticationInfo authenticationInfo) throws Exception  {
-        return Presence.getPresenceForUsers(Arrays.asList(this), authenticationInfo).get(0);
+        return Presence.getPresenceForUsers(Arrays.asList(this), authenticationInfo).get(this);
     }
 
     public static class BadgesResponse {

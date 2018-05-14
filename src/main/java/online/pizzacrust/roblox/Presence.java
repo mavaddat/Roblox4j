@@ -106,9 +106,9 @@ public class Presence {
 
     private String lastLocation;
 
-    private int placeId;
+    private Integer placeId;
 
-    private int rootPlaceId;
+    private Integer rootPlaceId;
 
     @SerializedName("gameId")
     private String serverId;
