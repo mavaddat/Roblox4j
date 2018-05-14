@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import online.pizzacrust.roblox.auth.AuthenticationInfo;
@@ -53,7 +54,8 @@ public class Presence {
         AuthenticationInfo authenticationInfo = AuthenticationInfo.authenticate(args[0], args[1]);
         getPresenceForUsers(Arrays.asList(Roblox.get("TGSCommander").get(), Roblox.get("TimGeithner")
                 .get()), authenticationInfo).forEach((r, p) -> System.out.println(p.getStatus()
-                .name() + " - Last seen: " + p.getDate()));
+                .get().name()
+                + " - Last seen: " + p.getDate()));
     }
 
     public static class PresenceRequest {
@@ -102,7 +104,14 @@ public class Presence {
     }
 
     @SerializedName("userPresenceType")
-    private Status status;
+    private Integer status;
+
+    public Optional<Status> getStatus() {
+        if (status != null) {
+            Optional.of(Status.getFromId(status));
+        }
+        return Optional.empty();
+    }
 
     private String lastLocation;
 
@@ -142,10 +151,6 @@ public class Presence {
 
     public String getLastLocation() {
         return lastLocation;
-    }
-
-    public Status getStatus() {
-        return status;
     }
 
     public String getCurrentPlaceName() {
