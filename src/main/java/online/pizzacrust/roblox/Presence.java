@@ -44,8 +44,10 @@ public class Presence {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Status.class, new StatusDeserializer());
         PresenceResponse response = gsonBuilder.create().fromJson(raw, PresenceResponse.class);
-        for (int i = 0; i < response.userPresences.length; i++) {
-            map.put(robloxianList.get(i), response.userPresences[i]);
+        if (response != null && response.userPresences != null) {
+            for (int i = 0; i < response.userPresences.length; i++) {
+                map.put(robloxianList.get(i), response.userPresences[i]);
+            }
         }
         return map;
     }
