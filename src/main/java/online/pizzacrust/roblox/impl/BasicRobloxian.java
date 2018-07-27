@@ -28,8 +28,20 @@ import online.pizzacrust.roblox.group.Group;
 
 public class BasicRobloxian extends BasicProfile implements Robloxian {
     private final Document document;
+
     public BasicRobloxian(String username) throws InvalidUserException {
         super(username);
+        try {
+            enableSSLSocket();
+            document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new InvalidUserException();
+        }
+    }
+
+    public BasicRobloxian(int id) throws InvalidUserException {
+        super(id);
         try {
             enableSSLSocket();
             document = Jsoup.connect(getProfileUrl()).ignoreContentType(true).get();

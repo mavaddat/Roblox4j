@@ -12,7 +12,7 @@ public interface Group {
     String getName() throws Exception;
 
     /**
-     * Gets the members of the group. Max. 100
+     * Gets the members of the group.
      * @return
      * @throws Exception
      */

@@ -25,19 +25,35 @@ public class BasicProfile implements Profile {
     private final String username;
 
     public BasicProfile(String username) throws InvalidUserException {
-        if (!doesUserExist(username)) {
-            throw new InvalidUserException();
-        }
         try {
             String baseUrl = "http://api.roblox" +
                     ".com/users/get-by-username?username=" + username;
             Response response = new Gson().fromJson(Jsoup.connect(baseUrl).ignoreContentType(true)
                     .get().body().text(), Response.class);
+            if (response.Username == null) {
+                throw new Exception();
+            }
             this.id = response.Id;
             this.username = response.Username;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new InvalidUserException();
+        }
+    }
+
+    public BasicProfile(int id) throws InvalidUserException {
+        try {
+            String baseUrl = "https://api.roblox.com/Users/" + id;
+            Response response = new Gson().fromJson(Jsoup.connect(baseUrl).ignoreContentType(true)
+                    .get().body().text(), Response.class);
+            if (response.Username == null) {
+                throw new Exception();
+            }
+            this.id = response.Id;
+            this.username = response.Username;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new InvalidUserException();
         }
     }
 
@@ -54,23 +70,6 @@ public class BasicProfile implements Profile {
     public static  class Response {
         public String Username;
         public Integer Id;
-    }
-
-    public static boolean doesUserExist(String username) {
-        try {
-            String baseUrl = "http://api.roblox" +
-                    ".com/users/get-by-username?username=" + username;
-            String response = new Gson().fromJson(Jsoup.connect(baseUrl).ignoreContentType(true)
-                    .get().body().text(), Response.class).Username;
-            if (response != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public static void enableSSLSocket() throws KeyManagementException, NoSuchAlgorithmException {
