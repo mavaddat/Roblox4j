@@ -2,6 +2,8 @@ package online.pizzacrust.roblox;
 
 import com.google.gson.Gson;
 
+import com.mashape.unirest.http.Unirest;
+
 import org.jsoup.Jsoup;
 
 import java.util.Optional;
@@ -86,6 +88,16 @@ public class Roblox {
      */
     public static Optional<Robloxian> getFromTag(String tag) {
         return format(tag);
+    }
+
+    public static class FilterResponse {
+        public String filteredGameUpdateText;
+    }
+
+    public static String filter(String text) throws Exception {
+         return new Gson().fromJson(Unirest.post("https://develop.roblox" +
+                 ".com/v1/gameUpdateNotifications/filter").body(
+                "\"" + text + "\"").asString().getBody(), FilterResponse.class).filteredGameUpdateText;
     }
 
 }
